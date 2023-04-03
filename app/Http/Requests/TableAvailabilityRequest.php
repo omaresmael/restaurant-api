@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\LessThanOrEqual;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class TableAvailabilityRequest extends FormRequest
 {
@@ -18,18 +18,10 @@ class TableAvailabilityRequest extends FormRequest
     {
         return [
             'from_time' => ['required','date_format:Y-m-d H:i:s'],
-            'to_time' => ['required','date_format:Y-m-d H:i:s'],
-            'guests' => ['required','integer',Rule::exists('tables', 'id')->where(function ($query) {
-                $query->where('capacity', '>=', $this->input('guests'));
-
-            }),],
+            'to_time' => ['required','date_format:Y-m-d H:i:s', 'after:from_time'],
+            'guests' => ['required','integer', new LessThanOrEqual($this->route('table')->capacity)],
         ];
     }
 
-    public function messages(): array
-    {
-        return [
-            'guests.exists' => 'the guests exceeds the capacity of the table',
-        ];
-    }
+
 }
