@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->mediumInteger('id')->unsigned()->autoIncrement();
-            $table->smallInteger('capacity');
+            $table->smallInteger('capacity')->unsigned()->index();
             $table->timestamps();
         });
     }

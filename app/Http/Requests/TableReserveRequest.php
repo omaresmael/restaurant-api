@@ -16,6 +16,7 @@ class TableReserveRequest extends FormRequest
         return [
             'from_time' => ['required','date_format:Y-m-d H:i:s'],
             'to_time' => ['required','date_format:Y-m-d H:i:s', 'after:from_time'],
+            'guests' => ['required','integer'],
         ];
     }
 }

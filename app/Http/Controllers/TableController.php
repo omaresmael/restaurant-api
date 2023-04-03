@@ -6,6 +6,7 @@ use App\Http\Requests\TableAvailabilityRequest;
 use App\Http\Requests\TableReserveRequest;
 use App\Models\Customer;
 use App\Models\Table;
+use App\Models\WaitingList;
 use Illuminate\Http\JsonResponse;
 
 
@@ -25,22 +26,41 @@ class TableController extends Controller
         ]);
     }
 
-    public function reserve(TableReserveRequest $request, Table $table, Customer $customer): JsonResponse
+    public function reserve(TableReserveRequest $request, Customer $customer): JsonResponse
     {
+        $from = $request->input('from_time');
+        $to = $request->input('to_time');
+        $guests = $request->input('guests');
 
-        if($table->isReserved($request->input('from_time'), $request->input('to_time'))) {
-            return response()->json([
-                'message' => 'Table is not available at this time',
-                'data' => null
-            ]);
+        if ($table = Table::available($from, $to, $guests)->first()) {
+            return $this->reserveTable($table, $customer, $request);
         }
+
+        return $this->addCustomerToWaitingList($from,$to,$guests,$customer);
+    }
+
+    private function reserveTable($table, Customer $customer, TableReserveRequest $request): JsonResponse
+    {
         $table->customers()->attach($customer, [
             'from_time' => $request->input('from_time'),
             'to_time' => $request->input('to_time'),
         ]);
-
         return response()->json([
             'message' => 'Table is reserved successfully',
+            'data' => null
+        ]);
+    }
+
+    private function addCustomerToWaitingList(string $from,string $to,int $guests,Customer $customer): JsonResponse
+    {
+        WaitingList::create([
+            'guests' => $guests,
+            'from_time' => $from,
+            'to_time' => $to,
+            'customer_id' => $customer->id,
+        ]);
+        return response()->json([
+            'message' => 'No table is not available at this time, customer has been added to the waiting list',
             'data' => null
         ]);
     }

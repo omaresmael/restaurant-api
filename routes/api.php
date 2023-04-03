@@ -17,6 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/table/{table}/availability', [TableController::class, 'checkAvailability'])
     ->name('table.availability');
 
-Route::post('/table/{table}/customer/{customer}/reserve', [TableController::class, 'reserve'])
+Route::post('/table/customer/{customer}/reserve', [TableController::class, 'reserve'])
     ->name('table.reserve')
     ->withoutScopedBindings();
