@@ -15,15 +15,10 @@ class TableController extends Controller
     public function checkAvailability(TableAvailabilityRequest $request, Table $table): JsonResponse
     {
         if($table->isReserved($request->input('from_time'), $request->input('to_time'))) {
-            return response()->json([
-                'message' => 'Table is not available at this time',
-                'data' => null
-            ]);
+            return jsonResponse('Table is not available at this time',['table_available' => false]);
         }
-        return response()->json([
-            'message' => 'Table is available',
-            'data' => null
-        ]);
+        return jsonResponse('Table is available',['table_available' => true]);
+
     }
 
     public function reserve(TableReserveRequest $request, Customer $customer): JsonResponse
@@ -45,10 +40,8 @@ class TableController extends Controller
             'from_time' => $request->input('from_time'),
             'to_time' => $request->input('to_time'),
         ]);
-        return response()->json([
-            'message' => 'Table is reserved successfully',
-            'data' => null
-        ]);
+        return jsonResponse('Table is reserved successfully');
+
     }
 
     private function addCustomerToWaitingList(string $from,string $to,int $guests,Customer $customer): JsonResponse
@@ -59,9 +52,7 @@ class TableController extends Controller
             'to_time' => $to,
             'customer_id' => $customer->id,
         ]);
-        return response()->json([
-            'message' => 'No table is not available at this time, customer has been added to the waiting list',
-            'data' => null
-        ]);
+        return jsonResponse('No table is available at this time, customer has been added to the waiting list');
+
     }
 }
