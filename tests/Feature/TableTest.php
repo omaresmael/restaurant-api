@@ -95,5 +95,5 @@ it('wait-list customer if the table is not available', function () {
         'to_time' => '2023-04-03 12:00:00',
         'guests' => 10,
     ]);
-    $this->assertEquals('No table is not available at this time, customer has been added to the waiting list', $response->json('message'));
+    $this->assertEquals('No table is available at this time, customer has been added to the waiting list', $response->json('message'));
 });
