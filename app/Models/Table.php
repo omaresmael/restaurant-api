@@ -10,6 +10,10 @@ class Table extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'capacity',
+    ];
+
     public function customers(): BelongsToMany
     {
         return $this->belongsToMany(Customer::class,'reservations')

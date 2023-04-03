@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/table/{table}/availability', [TableController::class, 'checkAvailability'])
     ->name('table.availability');
 
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/table/{table}/customer/{customer}/reserve', [TableController::class, 'reserve'])
+    ->name('table.reserve')
+    ->withoutScopedBindings();

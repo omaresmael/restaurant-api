@@ -42,5 +42,5 @@ it('check if a table is reserved for a duration in time', function () {
     $to = '2023-04-03 16:00:00';
 
     $this->assertFalse($this->table->isReserved($from, $to));
-})->only();
+});
 
