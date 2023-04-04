@@ -5,12 +5,12 @@ use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/table/{table}/availability', [TableController::class, 'checkAvailability'])
+Route::get('/tables/{table}/availability', [TableController::class, 'checkAvailability'])
     ->name('table.availability');
 
-Route::post('/table/customer/{customer}/reserve', [TableController::class, 'reserve'])
+Route::post('/tables/customer/{customer}/reserve', [TableController::class, 'reserve'])
     ->name('table.reserve')
     ->withoutScopedBindings();
 
-Route::get('/meal', [MealController::class, 'index'])
+Route::get('/meals', [MealController::class, 'index'])
     ->name('meal.index');
