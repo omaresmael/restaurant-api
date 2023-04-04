@@ -33,9 +33,8 @@ it('check the availability of the table', function () {
         'to_time' => '2023-04-03 13:00:00',
         'guests' => 3,
     ]));
-
+    $response->assertStatus(400);
     $this->assertEquals('Table is not available at this time', $response->json('message'));
-
 
 });
 
