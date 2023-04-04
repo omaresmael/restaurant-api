@@ -16,6 +16,7 @@ class MealResource extends JsonResource
             'available_quantity' => $this->available_quantity,
             'price' => $this->price,
             'discount' => $this->discount,
+            'discounted_price' => $this->discounted_price,
         ];
     }
 }
