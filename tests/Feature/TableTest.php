@@ -25,8 +25,10 @@ it('check the availability of the table', function () {
         'to_time' => '2023-04-03 16:00:00',
         'guests' => 3,
     ]));
-    $this->assertEquals('Table is available', $response->json('message'));
 
+    $response->assertJson([
+        'message' => 'Table is available',
+    ]);
     $response = $this->getJson(route('table.availability', [
         'table' => $this->table->id,
         'from_time' => '2023-04-03 11:00:00',
@@ -34,7 +36,9 @@ it('check the availability of the table', function () {
         'guests' => 3,
     ]));
     $response->assertStatus(400);
-    $this->assertEquals('Table is not available at this time', $response->json('message'));
+    $response->assertJson([
+        'message' => 'Table is not available at this time',
+    ]);
 
 });
 
@@ -47,7 +51,9 @@ it('reserves table if any available', function () {
         'guests' => 10,
     ]));
 
-    $this->assertEquals('Table is reserved successfully', $response->json('message'));
+    $response->assertJson([
+        'message' => 'Table is reserved successfully',
+    ]);
     $this->assertDatabaseHas('reservations', [
         'customer_id' => $this->customer->id,
         'table_id' => $this->table->id,
@@ -71,7 +77,10 @@ it('reserves table with the least acceptable capacity',function () {
         'to_time' => '2023-04-03 16:00:00',
         'guests' => 10,
     ]));
-    $this->assertEquals('Table is reserved successfully', $response->json('message'));
+
+    $response->assertJson([
+        'message' => 'Table is reserved successfully',
+    ]);
     $this->assertDatabaseHas('reservations', [
         'customer_id' => $this->customer->id,
         'table_id' => $acceptableTable->id,
@@ -88,11 +97,14 @@ it('wait-list customer if the table is not available', function () {
         'to_time' => '2023-04-03 12:00:00',
         'guests' => 10,
     ]));
+
     $this->assertDatabaseHas('waiting_lists', [
         'customer_id' => $this->customer->id,
         'from_time' => '2023-04-03 11:00:00',
         'to_time' => '2023-04-03 12:00:00',
         'guests' => 10,
     ]);
-    $this->assertEquals('No table is available at this time, customer has been added to the waiting list', $response->json('message'));
+    $response->assertJson([
+        'message' => 'No table is available at this time, customer has been added to the waiting list',
+    ]);
 });
