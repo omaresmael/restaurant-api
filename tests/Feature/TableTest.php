@@ -29,7 +29,7 @@ it('check the availability of the table', function () {
 
     $response = $this->getJson(route('table.availability', [
         'table' => $this->table->id,
-        'from_time' => '2023-04-03',
+        'from_time' => '2023-04-03 11:00:00',
         'to_time' => '2023-04-03 13:00:00',
         'guests' => 3,
     ]));
