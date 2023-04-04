@@ -23,7 +23,7 @@ return new class extends Migration
                 ->index('waiter_order_foreign')
                 ->nullable();
 
-            $table->decimal('total');
+            $table->decimal('total')->nullable();
             $table->decimal('paid')->nullable();
             $table->dateTime('paid_at')->nullable();
 

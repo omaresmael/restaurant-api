@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Order extends Model
 {
@@ -26,6 +27,13 @@ class Order extends Model
     public function reservation(): BelongsTo
     {
         return $this->belongsTo(Reservation::class);
+    }
+
+    public function meals(): BelongsToMany
+    {
+        return $this->belongsToMany(Meal::class, 'order_details')
+            ->as('order_details')
+            ->withPivot('amount_to_pay');
     }
 
     public function getCustomerAttribute()

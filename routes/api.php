@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MealController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,3 +15,6 @@ Route::post('/tables/customer/{customer}/reserve', [TableController::class, 'res
 
 Route::get('/meals', [MealController::class, 'index'])
     ->name('meal.index');
+
+Route::post('/orders/place', [OrderController::class, 'placeOrder'])
+    ->name('order.place');
