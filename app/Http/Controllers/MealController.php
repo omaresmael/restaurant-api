@@ -8,7 +8,7 @@ use App\Models\Meal;
 
 class MealController extends Controller
 {
-    public function index()
+    public function index(): MealCollection
     {
         return new MealCollection(Meal::cursorPaginate(Meal::PAGINATION_COUNT));
     }
