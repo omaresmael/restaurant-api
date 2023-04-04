@@ -19,10 +19,7 @@ class OrderController extends Controller
 
         $order->meals()->attach($meals);
 
-        return response()->json([
-            'message' => 'Order placed successfully',
-        ]);
-
+        return jsonResponse('Order placed successfully');
 
     }
 
