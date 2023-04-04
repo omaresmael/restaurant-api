@@ -24,7 +24,7 @@ class Meal extends Model
     protected function discountedPrice(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->price - ($this->price * ($this->discount / 100)),
+            get: fn () => round($this->price - ($this->price * ($this->discount / 100))),
         );
     }
 
