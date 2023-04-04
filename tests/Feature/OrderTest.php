@@ -45,4 +45,14 @@ it('places an order',function (){
         'meal_id' => $this->meal2->id,
         'amount_to_pay' => $this->meal2->discounted_price,
     ]);
+
+    $this->assertDatabaseHas('meals',[
+        'id' => $this->meal1->id,
+        'available_quantity' => $this->meal1->available_quantity - 1,
+    ]);
+    $this->assertDatabaseHas('meals',[
+        'id' => $this->meal2->id,
+        'available_quantity' => $this->meal2->available_quantity - 1,
+    ]);
+
 });
