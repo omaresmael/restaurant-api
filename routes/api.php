@@ -5,16 +5,23 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Route;
 
+Route::prefix('tables')->name('table.')->group(function () {
+    Route::get('/{table}/availability', [TableController::class, 'checkAvailability'])
+        ->name('availability');
 
-Route::get('/tables/{table}/availability', [TableController::class, 'checkAvailability'])
-    ->name('table.availability');
-
-Route::post('/tables/customer/{customer}/reserve', [TableController::class, 'reserve'])
-    ->name('table.reserve')
-    ->withoutScopedBindings();
+    Route::post('/customer/{customer}/reserve', [TableController::class, 'reserve'])
+        ->name('reserve')
+        ->withoutScopedBindings();
+});
 
 Route::get('/meals', [MealController::class, 'index'])
     ->name('meal.index');
 
-Route::post('/orders/place', [OrderController::class, 'placeOrder'])
-    ->name('order.place');
+Route::prefix('orders')->name('order.')->group(function () {
+    Route::post('/place', [OrderController::class, 'placeOrder'])
+        ->name('place');
+
+    Route::get('/{order}/checkout', [OrderController::class, 'checkout'])
+        ->name('checkout');
+});
+
