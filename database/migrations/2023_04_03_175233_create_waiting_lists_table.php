@@ -17,7 +17,7 @@ return new class extends Migration
                 ->unsigned()
                 ->nullable();
 
-            $table->tinyInteger('guests')->unsigned();
+            $table->smallInteger('guests')->unsigned();
             $table->dateTime('from_time');
             $table->dateTime('to_time');
 
