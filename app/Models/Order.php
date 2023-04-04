@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,11 +20,6 @@ class Order extends Model
         'paid_at',
     ];
 
-    protected $appends = [
-        'customer',
-        'table'
-    ];
-
     public function reservation(): BelongsTo
     {
         return $this->belongsTo(Reservation::class);
@@ -36,13 +32,17 @@ class Order extends Model
             ->withPivot('amount_to_pay');
     }
 
-    public function getCustomerAttribute()
+    protected function customer(): Attribute
     {
-        return $this->reservation->customer;
+        return Attribute::make(
+            get: fn () => $this->reservation->customer,
+        );
+    }
+    protected function table(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->reservation->reservationTable,
+        );
     }
 
-    public function getTableAttribute()
-    {
-        return $this->reservation->reservationTable;
-    }
 }
