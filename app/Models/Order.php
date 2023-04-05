@@ -12,6 +12,11 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $with = [
+        'meals',
+        'reservation',
+    ];
+
     protected $fillable = [
         'waiter_id',
         'reservation_id',
@@ -44,5 +49,24 @@ class Order extends Model
             get: fn () => $this->reservation->reservationTable,
         );
     }
+
+    private function calculateTotalPrice(): float
+    {
+        return $this->meals->sum(fn ($meal) => $meal->price);
+    }
+
+    private function calculatePaidPrice(): float
+    {
+        return $this->meals->sum(fn ($meal) => $meal->order_details->amount_to_pay);
+    }
+
+    public function calculateTotalAndPaidPrices(): array
+    {
+        $total = $this->calculateTotalPrice();
+        $paid = $this->calculatePaidPrice();
+
+        return [$total, $paid];
+    }
+
 
 }

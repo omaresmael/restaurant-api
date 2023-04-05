@@ -21,7 +21,7 @@ Route::prefix('orders')->name('order.')->group(function () {
     Route::post('/place', [OrderController::class, 'placeOrder'])
         ->name('place');
 
-    Route::get('/{order}/checkout', [OrderController::class, 'checkout'])
+    Route::put('/{order}/checkout', [OrderController::class, 'checkout'])
         ->name('checkout');
 });
 
