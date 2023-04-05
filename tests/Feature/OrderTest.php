@@ -65,13 +65,6 @@ it('places an order',function (){
 
 });
 
-function getFileInfo(int $orderId): array
-{
-    $fileName = 'invoice_' . $orderId . '_' . now()->format('Y-m-d_H-i-s') . '.pdf';
-    $fileUrl = env('APP_URL') . '/storage/' . $fileName;
-    return [$fileName, $fileUrl];
-}
-
 it('checkouts an order', function() {
     $this->freezeTime();
 
@@ -113,3 +106,9 @@ it('checkouts an order', function() {
     Storage::disk('public')->assertExists($fileName);
     Storage::disk('public')->delete($fileName);
 });
+function getFileInfo(int $orderId): array
+{
+    $fileName = 'invoice_' . $orderId . '_' . now()->format('Y-m-d_H-i-s') . '.pdf';
+    $fileUrl = env('APP_URL') . '/storage/' . $fileName;
+    return [$fileName, $fileUrl];
+}
