@@ -50,17 +50,17 @@ it('decrements the available quantity of a meal after being added to an order', 
         ],
     ];
     $order->meals()->attach($meals);
-    $this->assertDatabaseHas('order_details',[
+    $this->assertDatabaseHas('order_details', [
         'order_id' => $order->id,
         'meal_id' => $this->meal->id,
         'amount_to_pay' => $this->meal->discounted_price,
     ]);
 
-    $this->assertDatabaseHas('meals',[
+    $this->assertDatabaseHas('meals', [
         'id' => $this->meal->id,
         'available_quantity' => $this->meal->available_quantity - 1,
     ]);
-    $this->assertDatabaseHas('meals',[
+    $this->assertDatabaseHas('meals', [
         'id' => $secondMeal->id,
         'available_quantity' => $secondMeal->available_quantity - 1,
     ]);

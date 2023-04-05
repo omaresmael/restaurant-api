@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained();
-            $table->string('path',128);
+            $table->string('path', 128);
             $table->timestamps();
         });
     }

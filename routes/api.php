@@ -24,4 +24,3 @@ Route::prefix('orders')->name('order.')->group(function () {
     Route::put('/{order}/checkout', [OrderController::class, 'checkout'])
         ->name('checkout');
 });
-

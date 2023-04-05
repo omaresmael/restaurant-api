@@ -12,6 +12,7 @@ class Meal extends Model
     use HasFactory;
 
     const PAGINATION_COUNT = 10;
+
     protected $fillable = [
         'name',
         'description',

@@ -5,7 +5,6 @@ use App\Models\Order;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Storage;
 
-
 beforeEach(function () {
     $this->meal1 = Meal::factory()->create([
         'price' => 500,
@@ -21,8 +20,8 @@ beforeEach(function () {
     ]);
 
 });
-it('places an order',function (){
-    $response = $this->postJson(route('order.place'),[
+it('places an order', function () {
+    $response = $this->postJson(route('order.place'), [
         'reservation_id' => $this->reservation->id,
         'waiter_id' => 1,
         'meals' => [
@@ -41,31 +40,31 @@ it('places an order',function (){
     $response->assertJson([
         'message' => 'Order placed successfully',
     ]);
-    $this->assertDatabaseHas('orders',[
+    $this->assertDatabaseHas('orders', [
         'reservation_id' => $this->reservation->id,
         'waiter_id' => 1,
     ]);
-    $this->assertDatabaseHas('order_details',[
+    $this->assertDatabaseHas('order_details', [
         'meal_id' => $this->meal1->id,
         'amount_to_pay' => $this->meal1->discounted_price,
     ]);
-    $this->assertDatabaseHas('order_details',[
+    $this->assertDatabaseHas('order_details', [
         'meal_id' => $this->meal2->id,
         'amount_to_pay' => $this->meal2->discounted_price,
     ]);
 
-    $this->assertDatabaseHas('meals',[
+    $this->assertDatabaseHas('meals', [
         'id' => $this->meal1->id,
         'available_quantity' => $this->meal1->available_quantity - 1,
     ]);
-    $this->assertDatabaseHas('meals',[
+    $this->assertDatabaseHas('meals', [
         'id' => $this->meal2->id,
         'available_quantity' => $this->meal2->available_quantity - 1,
     ]);
 
 });
 
-it('checkouts an order', function() {
+it('checkouts an order', function () {
     $this->freezeTime();
 
     $order = Order::factory()->create([
@@ -84,7 +83,7 @@ it('checkouts an order', function() {
     ]);
     [$fileName , $fileUrl] = getFileInfo($order->id);
 
-    $response = $this->json('put',route('order.checkout',[
+    $response = $this->json('put', route('order.checkout', [
         'order' => $order->id,
     ]));
 
@@ -92,14 +91,14 @@ it('checkouts an order', function() {
         'message' => 'Order checked out successfully',
         'data' => [
             'invoice_url' => $fileUrl,
-        ]
+        ],
     ]);
-    $this->assertDatabaseHas('orders',[
+    $this->assertDatabaseHas('orders', [
         'id' => $order->id,
         'total' => $this->meal1->price + $this->meal2->price,
         'paid' => $this->meal1->discounted_price + $this->meal2->discounted_price,
     ]);
-    $this->assertDatabaseHas('invoices',[
+    $this->assertDatabaseHas('invoices', [
         'order_id' => $order->id,
         'path' => $fileUrl,
     ]);
@@ -108,7 +107,8 @@ it('checkouts an order', function() {
 });
 function getFileInfo(int $orderId): array
 {
-    $fileName = 'invoice_' . $orderId . '_' . now()->format('Y-m-d_H-i-s') . '.pdf';
-    $fileUrl = env('APP_URL') . '/storage/' . $fileName;
+    $fileName = 'invoice_'.$orderId.'_'.now()->format('Y-m-d_H-i-s').'.pdf';
+    $fileUrl = env('APP_URL').'/storage/'.$fileName;
+
     return [$fileName, $fileUrl];
 }

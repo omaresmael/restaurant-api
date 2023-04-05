@@ -19,10 +19,11 @@ class Table extends Model
 
     public function customers(): BelongsToMany
     {
-        return $this->belongsToMany(Customer::class,'reservations')
+        return $this->belongsToMany(Customer::class, 'reservations')
             ->as('reservation')
             ->withPivot('from_time', 'to_time');
     }
+
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
@@ -36,12 +37,12 @@ class Table extends Model
     public function isReserved(string $from, string $to): bool
     {
         //TODO: use joins if you got time
-        return $this->customers()->wherePivot('from_time', '<=',$to)
+        return $this->customers()->wherePivot('from_time', '<=', $to)
             ->where('to_time', '>=', $from)
             ->exists();
     }
 
-    public function scopeAvailable(Builder $query, string $from,string $to, int $guests): void
+    public function scopeAvailable(Builder $query, string $from, string $to, int $guests): void
     {
         $query->where('capacity', '>=', $guests)
             ->whereDoesntHave('customers', function (Builder $query) use ($from, $to) {
@@ -58,5 +59,4 @@ class Table extends Model
                 $query->orderBy('to_time');
             });
     }
-
 }

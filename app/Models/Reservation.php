@@ -30,6 +30,6 @@ class Reservation extends Model
 
     public function reservationTable(): BelongsTo
     {
-        return $this->belongsTo(Table::class,foreignKey: 'table_id',relation:'tables');
+        return $this->belongsTo(Table::class, foreignKey: 'table_id', relation: 'tables');
     }
 }

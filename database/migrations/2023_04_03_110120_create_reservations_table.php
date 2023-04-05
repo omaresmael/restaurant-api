@@ -32,8 +32,7 @@ return new class extends Migration
             $table->foreign('table_id')
                 ->references('id')
                 ->on('tables')
-                ->onDelete('Set Null')
-            ;
+                ->onDelete('Set Null');
             $table->foreign('customer_id')
                 ->references('id')
                 ->on('customers')

@@ -14,9 +14,9 @@ class TableReserveRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'from_time' => ['required','date_format:Y-m-d H:i:s'],
-            'to_time' => ['required','date_format:Y-m-d H:i:s', 'after:from_time'],
-            'guests' => ['required','integer'],
+            'from_time' => ['required', 'date_format:Y-m-d H:i:s'],
+            'to_time' => ['required', 'date_format:Y-m-d H:i:s', 'after:from_time'],
+            'guests' => ['required', 'integer'],
         ];
     }
 }

@@ -43,6 +43,7 @@ class Order extends Model
             get: fn () => $this->reservation->customer,
         );
     }
+
     protected function table(): Attribute
     {
         return Attribute::make(
@@ -67,6 +68,4 @@ class Order extends Model
 
         return [$total, $paid];
     }
-
-
 }

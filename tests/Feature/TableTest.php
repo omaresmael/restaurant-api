@@ -62,7 +62,7 @@ it('reserves table if any available', function () {
     ]);
 });
 
-it('reserves table with the least acceptable capacity',function () {
+it('reserves table with the least acceptable capacity', function () {
     $acceptableTable = Table::factory()->create([
         'capacity' => 11,
     ]);
@@ -92,11 +92,11 @@ it('reserves table with the least acceptable capacity',function () {
 
 it('wait-list customer if the table is not available', function () {
         $response = $this->postJson(route('table.reserve', [
-        'customer' => $this->customer->id,
-        'from_time' => '2023-04-03 11:00:00',
-        'to_time' => '2023-04-03 12:00:00',
-        'guests' => 10,
-    ]));
+            'customer' => $this->customer->id,
+            'from_time' => '2023-04-03 11:00:00',
+            'to_time' => '2023-04-03 12:00:00',
+            'guests' => 10,
+        ]));
 
     $this->assertDatabaseHas('waiting_lists', [
         'customer_id' => $this->customer->id,

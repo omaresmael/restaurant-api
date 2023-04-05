@@ -17,7 +17,8 @@ class OrderFactory extends Factory
      */
     public function definition(): array
     {
-        $total  = $this->faker->randomFloat(4, 0, 1000);
+        $total = $this->faker->randomFloat(4, 0, 1000);
+
         return [
             'reservation_id' => Reservation::factory(),
             'waiter_id' => 1,

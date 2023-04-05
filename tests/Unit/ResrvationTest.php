@@ -43,4 +43,3 @@ it('check if a table is reserved for a duration in time', function () {
 
     $this->assertFalse($this->table->isReserved($from, $to));
 });
-

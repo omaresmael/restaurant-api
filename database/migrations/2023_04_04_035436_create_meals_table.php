@@ -22,8 +22,8 @@ return new class extends Migration
                 ->unsigned();
             $table->smallInteger('initial_quantity')
                 ->unsigned();
-            $table->decimal('price',6);
-            $table->float('discount',4)
+            $table->decimal('price', 6);
+            $table->float('discount', 4)
                 ->default(0)
                 ->unsigned();
             $table->timestamps();

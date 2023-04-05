@@ -22,7 +22,7 @@ class Customer extends Model
 
     public function tables(): BelongsToMany
     {
-        return $this->belongsToMany(Table::class,'reservations')
+        return $this->belongsToMany(Table::class, 'reservations')
             ->as('reservation')
             ->withPivot('from_time', 'to_time');
     }
@@ -39,7 +39,6 @@ class Customer extends Model
 
     public function waitingList(): HasOne
     {
-        return $this->hasOne(WaitingList::class,'waiting_lists');
+        return $this->hasOne(WaitingList::class, 'waiting_lists');
     }
-
 }

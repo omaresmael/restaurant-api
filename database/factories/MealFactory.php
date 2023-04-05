@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MealFactory extends Factory
 {
-
     public function definition(): array
     {
         $initialQuantity = $this->faker->numberBetween(1, 100);
         $price = $this->faker->randomFloat(2, 1, 100);
+
         return [
             'name' => $this->faker->name,
             'description' => $this->faker->text,

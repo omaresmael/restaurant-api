@@ -34,24 +34,24 @@ beforeEach(function () {
     ]);
 });
 
-it('gets orders on the table', function (){
+it('gets orders on the table', function () {
    $orders = $this->table1->orders;
     $this->assertCount(1, $orders);
     $this->assertEquals($this->order1->id, $orders->first()->id);
 });
 
-it('gets orders for the customer', function (){
+it('gets orders for the customer', function () {
     $orders = $this->customer1->orders;
     $this->assertCount(1, $orders);
     $this->assertEquals($this->order1->id, $orders->first()->id);
 });
 
-it('gets the table of order', function (){
+it('gets the table of order', function () {
     $table = $this->order1->table;
     $this->assertEquals($this->table1->id, $table->id);
 });
 
-it('gets the customer of order', function (){
+it('gets the customer of order', function () {
     $customer = $this->order1->customer;
     $this->assertEquals($this->customer1->id, $customer->id);
 });

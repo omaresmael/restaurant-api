@@ -7,7 +7,6 @@ use App\Models\Order;
 use App\Services\Invoicable;
 use Illuminate\Http\JsonResponse;
 
-
 class OrderController extends Controller
 {
     public function placeOrder(PlaceOrderRequest $request): JsonResponse
@@ -42,7 +41,6 @@ class OrderController extends Controller
             'waiter_id' => $waiterId,
         ]);
     }
-
 
     private function updateOrder(Order $order, float $total, float $paid): void
     {

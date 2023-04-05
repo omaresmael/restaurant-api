@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use LaravelDaily\Invoices\Classes\Buyer;
 
 class Invoice extends Model
 {
@@ -20,9 +19,4 @@ class Invoice extends Model
     {
         return $this->belongsTo(Order::class);
     }
-
-
-
-
-
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+
 use App\Models\Customer;
 use App\Models\Invoice as InvoiceModel;
 use App\Models\Order;
@@ -11,7 +12,9 @@ use LaravelDaily\Invoices\Invoice;
 class InvoiceService implements invoicable
 {
     private Customer $customer;
+
     private Order $order;
+
     private function getInvoiceCustomer(): Buyer
     {
         return new Buyer([
@@ -33,6 +36,7 @@ class InvoiceService implements invoicable
                 ->quantity(1)
                 ->discountByPercent($meal->discount);
         }
+
         return $items;
     }
 
@@ -47,7 +51,6 @@ class InvoiceService implements invoicable
             ->filename($this->getInvoiceName())
             ->save('public');
 
-
         $invoiceModel = InvoiceModel::create([
             'order_id' => $this->order->id,
             'path' => $invoice->url(),
@@ -55,9 +58,9 @@ class InvoiceService implements invoicable
 
         return $invoiceModel;
     }
+
     private function getInvoiceName(): string
     {
-        return 'invoice_' . $this->order->id . '_' . now()->format('Y-m-d_H-i-s');
+        return 'invoice_'.$this->order->id.'_'.now()->format('Y-m-d_H-i-s');
     }
-
 }

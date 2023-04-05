@@ -2,10 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Customer;
-use App\Models\Order;
 use App\Models\Invoice as InvoiceModel;
-use LaravelDaily\Invoices\Invoice;
+use App\Models\Order;
 
 interface Invoicable
 {
