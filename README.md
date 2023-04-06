@@ -5,6 +5,7 @@ list meals, check the aviablity of a table, reserve a table, place order, checko
 ### Deployed On
 * heroku app
 * aws rds
+* aws s3
 
 ### TODO
 * optimize db queries
