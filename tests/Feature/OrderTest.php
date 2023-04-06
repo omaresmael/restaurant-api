@@ -65,6 +65,8 @@ it('places an order', function () {
 });
 
 it('checkouts an order', function () {
+
+    Storage::fake('s3');
     $this->freezeTime();
 
     $order = Order::factory()->create([
@@ -102,13 +104,12 @@ it('checkouts an order', function () {
         'order_id' => $order->id,
         'path' => $fileUrl,
     ]);
-    Storage::disk('public')->assertExists($fileName);
-    Storage::disk('public')->delete($fileName);
+    Storage::disk('s3')->assertExists($fileName);
 });
 function getFileInfo(int $orderId): array
 {
     $fileName = 'invoice_'.$orderId.'_'.now()->format('Y-m-d_H-i-s').'.pdf';
-    $fileUrl = env('APP_URL').'/storage/'.$fileName;
+    $fileUrl = '/storage/'.$fileName;
 
     return [$fileName, $fileUrl];
 }

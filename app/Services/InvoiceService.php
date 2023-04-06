@@ -49,7 +49,7 @@ class InvoiceService implements invoicable
             ->buyer($this->getInvoiceCustomer())
             ->addItems($this->getInvoiceItems())
             ->filename($this->getInvoiceName())
-            ->save('public');
+            ->save('s3');
 
         $invoiceModel = InvoiceModel::create([
             'order_id' => $this->order->id,
