@@ -10,4 +10,5 @@ list meals, check the availability of a table, reserve a table, place order, che
 ### TODO
 * optimize db queries
 * handle exceptions
+* scheduler to reset the available amount of meals each day
 
