@@ -9,7 +9,7 @@ use LaravelDaily\Invoices\Classes\Buyer;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
 use LaravelDaily\Invoices\Invoice;
 
-class InvoiceService implements invoicable
+class InvoiceService implements Invoicable
 {
     private Customer $customer;
 
